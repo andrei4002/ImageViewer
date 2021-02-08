@@ -47,6 +47,27 @@ class VideoViewController: ItemBaseController<VideoView> {
 
         super.init(index: index, itemCount: itemCount, fetchImageBlock: fetchImageBlock, configuration: configuration, isInitialController: isInitialController)
     }
+    
+    init(index: Int, itemCount: Int, fetchImageBlock: @escaping FetchImageBlock, videoAsset: AVURLAsset, scrubber: VideoScrubber, configuration: GalleryConfiguration, isInitialController: Bool = false) {
+
+        self.videoURL = videoAsset.url
+        self.scrubber = scrubber
+        self.player = AVPlayer(playerItem: AVPlayerItem(asset: videoAsset))
+        
+        ///Only those options relevant to the paging VideoViewController are explicitly handled here, the rest is handled by ItemViewControllers
+        for item in configuration {
+            
+            switch item {
+                
+            case .videoAutoPlay(let enabled):
+                autoPlayEnabled = enabled
+                
+            default: break
+            }
+        }
+
+        super.init(index: index, itemCount: itemCount, fetchImageBlock: fetchImageBlock, configuration: configuration, isInitialController: isInitialController)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 public typealias ImageCompletion = (UIImage?) -> Void
 public typealias FetchImageBlock = (@escaping ImageCompletion) -> Void
@@ -16,5 +17,6 @@ public enum GalleryItem {
 
     case image(fetchImageBlock: FetchImageBlock)
     case video(fetchPreviewImageBlock: FetchImageBlock, videoURL: URL)
+    case videoAsset(fetchPreviewImageBlock: FetchImageBlock, videoAsset: AVURLAsset)
     case custom(fetchImageBlock: FetchImageBlock, itemViewControllerBlock: ItemViewControllerBlock)
 }
